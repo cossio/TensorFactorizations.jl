@@ -1,11 +1,15 @@
 using Test: @test, @testset, @inferred
 using TensorFactorizations: als
 using Statistics: cor
-using Random: bitrand
+using Random: Random, bitrand
 using LinearAlgebra: qr
 using Tullio: @tullio
 
 @testset "2-dimensional case" begin
+    # `als` starts from a random initialization and, for a small fraction of
+    # draws, stalls at a poor stationary point. Seed so the test is deterministic.
+    Random.seed!(1)
+
     N, M = (17, 25)
     rank = 1
 
